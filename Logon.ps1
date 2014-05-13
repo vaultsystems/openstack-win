@@ -42,6 +42,8 @@ try
     del $psWindowsUpdateFile
     del $puppetFile
 
+    & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown
+
     if (Get-WURebootStatus -Silent) { shutdown /r /t 0 }
 }
 catch
