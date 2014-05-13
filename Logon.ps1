@@ -2,7 +2,7 @@ $ErrorActionPreference = "Stop"
 
 try
 {
-    # Adding all
+    # Adding all Roles
     Add-WindowsFeature -Name "NET-Framework-Core" -Source D:\sources\sxs
     Add-WindowsFeature -Name "NFS-Client"
     Add-WindowsFeature -Name "Telnet-Client"
@@ -25,7 +25,7 @@ try
     Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
 
     # Settup Hosts to see things
-    Set-Content -Path "C:\Windows\system32\drihttps://raw.githubusercontent.com/noma4i/windows-openstack-imaging-tools/master/Logon.ps1vers\etc\hosts" -Value "192.168.240.162 puppet"
+    Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
 
     # Downloading PuppetAgent and pointing to server
     $puppetUrl = "http://downloads.puppetlabs.com/windows/puppet-3.6.0-rc1.msi"
