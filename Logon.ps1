@@ -41,7 +41,7 @@ try
 
     del $psWindowsUpdateFile
 
-    Restart-Computer -Force
+    shutdown /r /t 90
 }
 catch
 {
