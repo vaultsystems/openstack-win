@@ -7,9 +7,10 @@ try
     # possibly avoiding duplicates with "File and printer sharing (Echo Request - ICMPv[4,6]-In)"
     netsh firewall set icmpsetting 8
 
+
     $Host.UI.RawUI.WindowTitle = "Downloading FirstLogon script..."
-    #Make sure that in case of exception the FirstLogon script will not be executed.
-    #Being the last instruction this is already ok
+    $temp = "$ENV:SystemRoot\Temp"
+    $baseUrl = "https://raw.github.com/jnsolutions/openstack-win/master"
     (new-object System.Net.WebClient).DownloadFile("$baseUrl/FirstLogon.ps1", "$temp\FirstLogon.ps1")
 }
 catch
