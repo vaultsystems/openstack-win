@@ -12,7 +12,7 @@ try
     Add-WindowsFeature -Name "RDS-Licensing"
 
     # Download and apply updates
-    $psWindowsUpdateUrl = "http://gallery.technet.microsoft.com/scriptcenter/2d191bcd-3308-4edd-9de2-88dff796b0bc/file/41459/25/PSWindowsUpdate.zip"
+    $psWindowsUpdateUrl = "https://raw.github.com/jnsolutions/openstack-win/master/PSWindowsUpdate.zip"
     $psWindowsUpdateFile = "$ENV:Temp\PSWindowsUpdate.zip"
 
     Invoke-WebRequest $psWindowsUpdateUrl -OutFile $psWindowsUpdateFile
@@ -22,7 +22,7 @@ try
         (New-Object -com shell.application).NameSpace("$ENV:SystemRoot\System32\WindowsPowerShell\v1.0\Modules").copyhere($item, $yesToAll)
     }
     Import-Module PSWindowsUpdate
-    Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
+    # Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
 
     # Settup Hosts to see things
     Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
