@@ -3,17 +3,14 @@ Windows 2012 Unattended Setup
 
 Tools to automate the creation of a Windows image for OpenStack, supporting KVM, Hyper-V, ESXi and more.
 
-Note: we consider that target system is x64 
+Note: we consider that target system is x64
 
 
 
 ### Creating Image on KVM
 
 
-Download the VirtIO tools ISO, e.g. from:
-http://alt.fedoraproject.org/pub/alt/virtio-win/latest/images/bin/
-
-You'll need also your Windows installation ISO. In the following example we'll use a Windows Server 2012 R2
+You'll need your Windows installation ISO. In the following example we'll use a Windows Server 2012 R2
 evaluation.
 
     IMAGE=windows-server-2012-r2.qcow2
