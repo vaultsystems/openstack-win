@@ -2,6 +2,15 @@ $ErrorActionPreference = "Stop"
 
 try
 {
+    # Adding all Roles
+    Add-WindowsFeature -Name "NET-Framework-Core" -Source D:\sources\sxs
+    Add-WindowsFeature -Name "NFS-Client"
+    Add-WindowsFeature -Name "Telnet-Client"
+    Add-WindowsFeature -Name "Telnet-Server"
+    Add-WindowsFeature -Name "Windows-Identity-Foundation"
+    Add-WindowsFeature -Name "RDS-RD-Server"
+    Add-WindowsFeature -Name "RDS-Licensing"
+
     # Download and apply updates
     $psWindowsUpdateUrl = "https://raw.github.com/jnsolutions/openstack-win/master/PSWindowsUpdate.zip"
     $psWindowsUpdateFile = "$ENV:Temp\PSWindowsUpdate.zip"
