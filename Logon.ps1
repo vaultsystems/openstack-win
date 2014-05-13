@@ -33,7 +33,7 @@ try
     $masterServer = "puppet"
 
     Invoke-WebRequest $puppetUrl -OutFile $puppetFile
-    & "$ENV:SystemRoot\System32\msiexec.exe /qn /i '$puppetFile' PUPPET_MASTER_SERVER=$masterServer"
+    Start-Process "$puppetFile PUPPET_MASTER_SERVER=$masterServer" /qn
 
     # Finalize and cleanup
     Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name Unattend*
