@@ -3,11 +3,11 @@ Windows 2012 Unattended Setup
 
 Tools to automate the creation of a Windows image for OpenStack, supporting KVM, Hyper-V, ESXi and more.
 
-Note: the provided Autounattend.xml targets x64 versions, but it can be easily adapted to x86.
+Note: we consider that target system is x64 
 
 
 
-### How to create a Windows template image on KVM
+### Creating Image on KVM
 
 
 Download the VirtIO tools ISO, e.g. from:
@@ -38,6 +38,8 @@ on this port, e.g.:
 
     iptables -I INPUT -p tcp --dport 5901 -j ACCEPT
 
+On every change of Autounattended.xml we need to recreate floppy image:
 
+	./create-autounattend-floppy.sh
 
 Original Toolbelt can be found at https://github.com/cloudbase/windows-openstack-imaging-tools
