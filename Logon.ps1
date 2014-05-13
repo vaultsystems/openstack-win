@@ -33,15 +33,13 @@ try
     $masterServer = "puppet"
 
     Invoke-WebRequest $puppetUrl -OutFile $puppetFile
-    & "msiexec /qn /i '$puppetFile' PUPPET_MASTER_SERVER=$masterServer"
+    & "$ENV:SystemRoot\System32\msiexec.exe /qn /i '$puppetFile' PUPPET_MASTER_SERVER=$masterServer"
 
     # Finalize and cleanup
     Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name Unattend*
     Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
 
     del $psWindowsUpdateFile
-
-    & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown
 
     Restart-Computer -Force
 }
