@@ -2,6 +2,11 @@ $ErrorActionPreference = "Stop"
 
 try
 {
+    # Setup Proxy
+    Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
+    & "netsh winhttp set proxy HERE_GOES_PROXY"
+
+
     # Adding all Roles
     Add-WindowsFeature -Name "NET-Framework-Core" -Source D:\sources\sxs
     Add-WindowsFeature -Name "NFS-Client"
@@ -22,7 +27,7 @@ try
         (New-Object -com shell.application).NameSpace("$ENV:SystemRoot\System32\WindowsPowerShell\v1.0\Modules").copyhere($item, $yesToAll)
     }
     Import-Module PSWindowsUpdate
-    # Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
+    Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
 
     # Settup Hosts to see things
     Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
@@ -38,8 +43,16 @@ try
     # Finalize and cleanup
     Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name Unattend*
     Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
+    Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
+
+    # Expire Administrator password
+    $user = [ADSI]'WinNT://localhost/Administrator'
+    $user.passwordExpired = 1
+    $user.setinfo()
 
     del $psWindowsUpdateFile
+
+    & "netsh winhttp reset proxy"
 
     shutdown /s /t 90
 }
