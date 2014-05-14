@@ -8,7 +8,7 @@ try
 
     #SetComputername
     $nameNumber = Test-Connection -ComputerName ${env:computername} -Count 1 | foreach{ $_.IPV4Address.IPAddressToString.split('.')[-1] }
-    Rename-Comuter "troop$nameNumber"
+    Rename-Computer "troop$nameNumber"
 
     # Adding all Roles
     Add-WindowsFeature -Name "NET-Framework-Core" -Source D:\sources\sxs
