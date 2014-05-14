@@ -12,7 +12,7 @@ try
     Add-WindowsFeature -Name "RDS-Licensing"
 
     # Download and apply updates
-    $psWindowsUpdateUrl = "https://raw.github.com/jnsolutions/openstack-win/master/PSWindowsUpdate.zip"
+    $psWindowsUpdateUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/PSWindowsUpdate.zip"
     $psWindowsUpdateFile = "$ENV:Temp\PSWindowsUpdate.zip"
 
     Invoke-WebRequest $psWindowsUpdateUrl -OutFile $psWindowsUpdateFile
