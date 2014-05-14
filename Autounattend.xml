@@ -177,7 +177,7 @@
             <RunSynchronous>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>1</Order>
-                    <Path>powershell -NoLogo -Command "Invoke-WebRequest 'https://raw.github.com/jnsolutions/openstack-win/master/Specialize.ps1' -OutFile 'c:\Windows\Temp\Specialize.ps1'"
+                    <Path>powershell -NoLogo -Command "Invoke-WebRequest 'https://raw.githubusercontent.com/jnsolutions/openstack-win/master/Specialize.ps1' -OutFile 'c:\Windows\Temp\Specialize.ps1'"
                     </Path>
                     <Description>Download Specialize script</Description>
                 </RunSynchronousCommand>
