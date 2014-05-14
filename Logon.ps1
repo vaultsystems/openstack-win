@@ -41,7 +41,7 @@ try
 
     del $psWindowsUpdateFile
 
-    shutdown /r /t 90
+    shutdown /s /t 90
 }
 catch
 {
