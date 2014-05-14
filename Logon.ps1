@@ -7,7 +7,7 @@ try
     iex "cmd.exe /c netsh winhttp set proxy 10.2.0.2:3128"
 
     #SetComputername
-    Rename-Computer "troop_dummy"
+    Rename-Computer "dummy"
 
     # Adding all Roles
     Add-WindowsFeature -Name "NET-Framework-Core" -Source D:\sources\sxs
