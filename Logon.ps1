@@ -55,7 +55,7 @@ try
 
     del $psWindowsUpdateFile
 
-    & "netsh winhttp reset proxy"
+    iex "cmd.exe /c netsh winhttp reset proxy"
 
     shutdown /s /t 90
 }
