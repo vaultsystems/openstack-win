@@ -4,7 +4,7 @@ try
 {
     # Setup Proxy
     Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
-    iex "cmd.exe /c netsh winhttp set proxy HERE_GOES_PROXY"
+    iex "cmd.exe /c netsh winhttp set proxy SERVER:PORT"
 
     #SetComputername
     Rename-Computer "troop_dummy"
