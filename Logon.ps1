@@ -4,8 +4,11 @@ try
 {
     # Setup Proxy
     Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
-    & "netsh winhttp set proxy HERE_GOES_PROXY"
+    & "cmd.exe /c netsh winhttp set proxy HERE_GOES_PROXY"
 
+    #SetComputername
+    $nameNumber = Test-Connection -ComputerName ${env:computername} -Count 1 | foreach{ $_.IPV4Address.IPAddressToString.split('.')[-1] }
+    Rename-Comuter "troop$nameNumber"
 
     # Adding all Roles
     Add-WindowsFeature -Name "NET-Framework-Core" -Source D:\sources\sxs
