@@ -9,6 +9,7 @@ if [ ! -f "$KVM" ]; then
 fi
 
 #qemu-img create -f qcow2 -o preallocation=metadata $IMAGE 16G
-dd if=/dev/zero of=$IMAGE bs=1G count=16
+rm $IMAGE
+truncate --size=16G $IMAGE
 
 $KVM -m 2048 -smp 2 -cdrom $ISO -drive file=$VIRTIO_ISO,index=3,media=cdrom -fda $FLOPPY $IMAGE -boot d -vga std -k en-us -vnc :1
