@@ -10,8 +10,11 @@ Note: we consider that target system is x64
 ### Creating Image on KVM
 
 
-You'll need your Windows installation ISO. In the following example we'll use a Windows Server 2012 R2
-evaluation.
+You'll need your Windows installation ISO and the virtio driver ISO:
+
+	https://alt.fedoraproject.org/pub/alt/virtio-win/latest/virtio-win-0.1-74.iso
+
+Then run:
 
 	./build.sh
 
