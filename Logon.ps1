@@ -3,8 +3,8 @@ $ErrorActionPreference = "Stop"
 try
 {
     # Setup Proxy
-    Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
-    iex "cmd.exe /c netsh winhttp set proxy 10.2.0.2:3128"
+    # Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
+    # iex "cmd.exe /c netsh winhttp set proxy 10.2.0.2:3128"
 
     #SetComputername
     Rename-Computer "dummy"
@@ -18,18 +18,18 @@ try
     Add-WindowsFeature -Name "RDS-RD-Server"
     Add-WindowsFeature -Name "RDS-Licensing"
 
-    # Download and apply updates
-    $psWindowsUpdateUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/PSWindowsUpdate.zip"
-    $psWindowsUpdateFile = "$ENV:Temp\PSWindowsUpdate.zip"
-
-    Invoke-WebRequest $psWindowsUpdateUrl -OutFile $psWindowsUpdateFile
-    foreach($item in (New-Object -com shell.application).NameSpace($psWindowsUpdateFile).Items())
-    {
-        $yesToAll = 16
-        (New-Object -com shell.application).NameSpace("$ENV:SystemRoot\System32\WindowsPowerShell\v1.0\Modules").copyhere($item, $yesToAll)
-    }
-    Import-Module PSWindowsUpdate
-    Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
+#    # Download and apply updates
+#    $psWindowsUpdateUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/PSWindowsUpdate.zip"
+#    $psWindowsUpdateFile = "$ENV:Temp\PSWindowsUpdate.zip"
+#
+#    Invoke-WebRequest $psWindowsUpdateUrl -OutFile $psWindowsUpdateFile
+#    foreach($item in (New-Object -com shell.application).NameSpace($psWindowsUpdateFile).Items())
+#    {
+#        $yesToAll = 16
+#        (New-Object -com shell.application).NameSpace("$ENV:SystemRoot\System32\WindowsPowerShell\v1.0\Modules").copyhere($item, $yesToAll)
+#    }
+#    Import-Module PSWindowsUpdate
+#    Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
 
     # Settup Hosts to see things
     Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
@@ -52,9 +52,9 @@ try
     $user.passwordExpired = 1
     $user.setinfo()
 
-    del $psWindowsUpdateFile
+#    del $psWindowsUpdateFile
 
-    iex "cmd.exe /c netsh winhttp reset proxy"
+#    iex "cmd.exe /c netsh winhttp reset proxy"
     C:\Windows\System32\Sysprep\sysprep.exe /oobe /generalize /shutdown
 }
 catch
