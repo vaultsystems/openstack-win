@@ -55,8 +55,7 @@ try
     del $psWindowsUpdateFile
 
     iex "cmd.exe /c netsh winhttp reset proxy"
-
-    shutdown /s /t 90
+    C:\Windows\System32\Sysprep\sysprep.exe /oobe /generalize /shutdown
 }
 catch
 {

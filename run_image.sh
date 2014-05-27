@@ -1,4 +1,4 @@
-IMAGE=windows-server-2012-r2.qcow2
+IMAGE=windows-server-2012-r2.raw
 
 KVM=/usr/libexec/qemu-kvm
 if [ ! -f "$KVM" ]; then
