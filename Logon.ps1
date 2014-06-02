@@ -3,8 +3,8 @@ $ErrorActionPreference = "Stop"
 try
 {
     # Setup Proxy
-    Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
-    iex "cmd.exe /c netsh winhttp set proxy 10.2.0.2:3128"
+    # Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
+    # iex "cmd.exe /c netsh winhttp set proxy 10.2.0.2:3128"
 
     #SetComputername
     Rename-Computer "dummy"
@@ -17,6 +17,11 @@ try
     Add-WindowsFeature -Name "Windows-Identity-Foundation"
     Add-WindowsFeature -Name "RDS-RD-Server"
     Add-WindowsFeature -Name "RDS-Licensing"
+
+    # Download Sysprep
+    $sysprepUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/sysprep.xml"
+    $sysprepFile = "$ENV:Temp\sysprep.xml"
+    Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
     # Download and apply updates
     $psWindowsUpdateUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/PSWindowsUpdate.zip"
@@ -48,14 +53,16 @@ try
     Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
 
     # Expire Administrator password
-    $user = [ADSI]'WinNT://localhost/Administrator'
-    $user.passwordExpired = 1
-    $user.setinfo()
+    # $user = [ADSI]'WinNT://localhost/Administrator'
+    # $user.passwordExpired = 1
+    # $user.setinfo()
 
     del $psWindowsUpdateFile
 
     iex "cmd.exe /c netsh winhttp reset proxy"
-    $ENV:SystemRoot\System32\Sysprep\Sysprep.exe /oobe /generalize /shutdown
+
+    & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
+
 }
 catch
 {
