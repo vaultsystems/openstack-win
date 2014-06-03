@@ -18,9 +18,9 @@ try
     Add-WindowsFeature -Name "RDS-RD-Server"
     Add-WindowsFeature -Name "RDS-Licensing"
 
-    # Download Sysprep
-    $sysprepUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/sysprep.xml"
-    $sysprepFile = "$ENV:Temp\sysprep.xml"
+    # Download Sysprep Powershell
+    $sysprepUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/Sysprep.ps1"
+    $sysprepFile = "$ENV:Temp\Sysprep.ps1"
     Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
     # Download and apply updates
@@ -52,16 +52,10 @@ try
     Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
     Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
 
-    # Expire Administrator password
-    # $user = [ADSI]'WinNT://localhost/Administrator'
-    # $user.passwordExpired = 1
-    # $user.setinfo()
-
     del $psWindowsUpdateFile
 
-    iex "cmd.exe /c netsh winhttp reset proxy"
-
-    & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
+    $RunOnceKey = "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce"
+    set-itemproperty $RunOnceKey "ConfigureServer" ('C:\Windows\System32\WindowsPowerShell\v1.0\Powershell.exe -File "$sysprepFile"')
 
 }
 catch
