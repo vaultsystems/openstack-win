@@ -71,7 +71,7 @@ try
       $sysprepFile = "$ENV:Temp\sysprep.xml"
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
-      Expire Administrator password
+      # Expire Administrator password
       $user = [ADSI]'WinNT://localhost/Administrator'
       $user.passwordExpired = 1
       $user.setinfo()
