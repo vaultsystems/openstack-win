@@ -7,9 +7,6 @@ try
       # Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
       # iex "cmd.exe /c netsh winhttp set proxy 10.2.0.2:3128"
 
-      #SetComputername
-      Rename-Computer "dummy"
-
       # Adding all Roles
       Add-WindowsFeature -Name "NET-Framework-Core" -Source D:\sources\sxs
       Add-WindowsFeature -Name "NFS-Client"
@@ -26,8 +23,8 @@ try
       Invoke-WebRequest $psWindowsUpdateUrl -OutFile $psWindowsUpdateFile
       foreach($item in (New-Object -com shell.application).NameSpace($psWindowsUpdateFile).Items())
       {
-          $yesToAll = 16
-          (New-Object -com shell.application).NameSpace("$ENV:SystemRoot\System32\WindowsPowerShell\v1.0\Modules").copyhere($item, $yesToAll)
+        $yesToAll = 16
+        (New-Object -com shell.application).NameSpace("$ENV:SystemRoot\System32\WindowsPowerShell\v1.0\Modules").copyhere($item, $yesToAll)
       }
       Import-Module PSWindowsUpdate
       # Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
@@ -44,22 +41,26 @@ try
       Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer", /qn
 
       del $psWindowsUpdateFile
+
+      #SetComputername
+      Rename-Computer "dummy"
       Restart-Computer -Force
+
   } else {
       # Finalize and cleanup
       Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name Unattend*
-      # Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
-      # Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
+      Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
+      Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
 
       # Download Sysprep Config
       $sysprepUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/sysprep.xml"
       $sysprepFile = "$ENV:Temp\sysprep.xml"
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
-      # Expire Administrator password
-      # $user = [ADSI]'WinNT://localhost/Administrator'
-      # $user.passwordExpired = 1
-      # $user.setinfo()
+      Expire Administrator password
+      $user = [ADSI]'WinNT://localhost/Administrator'
+      $user.passwordExpired = 1
+      $user.setinfo()
 
       iex "cmd.exe /c netsh winhttp reset proxy"
 
