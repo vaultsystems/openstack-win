@@ -19,11 +19,6 @@ try
       Add-WindowsFeature -Name "RDS-RD-Server"
       Add-WindowsFeature -Name "RDS-Licensing"
 
-      # Download Sysprep Powershell
-      $sysprepUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/Sysprep.ps1"
-      $sysprepFile = "$ENV:Temp\Sysprep.ps1"
-      Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
-
       # Download and apply updates
       $psWindowsUpdateUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/PSWindowsUpdate.zip"
       $psWindowsUpdateFile = "$ENV:Temp\PSWindowsUpdate.zip"
