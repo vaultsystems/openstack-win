@@ -41,7 +41,7 @@ try
         (New-Object -com shell.application).NameSpace("C:\").copyhere($item, $yesToAll)
       }
 
-      & "rundll32 setupapi.dll,InstallHinfSection DefaultInstall 128 C:\imdisk\imdisk.inf"
+      iex "cmd.exe /c rundll32 setupapi.dll,InstallHinfSection DefaultInstall 128 C:\imdisk\imdisk.inf"
 
       # Settup Hosts to see things
       Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
