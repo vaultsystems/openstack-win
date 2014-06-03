@@ -47,16 +47,12 @@ try
     Invoke-WebRequest $puppetUrl -OutFile $puppetFile
     Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer", /qn
 
-    # Finalize and cleanup
-    Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name Unattend*
-    Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
-    Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
-
     del $psWindowsUpdateFile
 
     $RunOnceKey = "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce"
     set-itemproperty $RunOnceKey "ConfigureServer" ('C:\Windows\System32\WindowsPowerShell\v1.0\Powershell.exe -File "$sysprepFile"')
 
+    Restart-Computer -Force
 }
 catch
 {
