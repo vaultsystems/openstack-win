@@ -48,8 +48,8 @@ try
   } else {
       # Finalize and cleanup
       Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name Unattend*
-      Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
-      Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
+      # Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
+      # Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
 
       # Download Sysprep Config
       $sysprepUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/sysprep.xml"
@@ -57,9 +57,9 @@ try
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
       # Expire Administrator password
-      $user = [ADSI]'WinNT://localhost/Administrator'
-      $user.passwordExpired = 1
-      $user.setinfo()
+      # $user = [ADSI]'WinNT://localhost/Administrator'
+      # $user.passwordExpired = 1
+      # $user.setinfo()
 
       iex "cmd.exe /c netsh winhttp reset proxy"
 
