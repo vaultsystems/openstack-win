@@ -54,6 +54,8 @@ try
       Invoke-WebRequest $pipUrl -OutFile $pipFile
 
       Start-Process "$pythonFile" /qn -Wait
+      Start-Sleep -s 20
+
       [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "Machine")
       [Environment]::SetEnvironmentVariable("PATHEXT", "$env:PATHEXT;.PY", "Machine")
 
@@ -74,6 +76,8 @@ try
 
       Invoke-WebRequest $puppetUrl -OutFile $puppetFile
       Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer", /qn
+
+      throw # debugging
 
       del $psWindowsUpdateFile
 
