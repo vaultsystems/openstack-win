@@ -2,6 +2,7 @@ $ErrorActionPreference = "Stop"
 
 try
 {
+  $admFolder = "C:\Users\Administrator\Documents"
   if (${env:computername} -ne "dummy"){
       # Setup Proxy
       Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
@@ -18,7 +19,7 @@ try
 
       # Download and apply updates
       $psWindowsUpdateUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/PSWindowsUpdate.zip"
-      $psWindowsUpdateFile = "$ENV:Temp\PSWindowsUpdate.zip"
+      $psWindowsUpdateFile = "$admFolder\PSWindowsUpdate.zip"
 
       Invoke-WebRequest $psWindowsUpdateUrl -OutFile $psWindowsUpdateFile
       foreach($item in (New-Object -com shell.application).NameSpace($psWindowsUpdateFile).Items())
@@ -32,7 +33,7 @@ try
 
       #Setup RAM
       $imDiskUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/imdisk.zip"
-      $imDiskFile = "$ENV:Temp\imdisk.zip"
+      $imDiskFile = "$admFolder\imdisk.zip"
 
       Invoke-WebRequest $imDiskUrl -OutFile $imDiskFile
       foreach($item in (New-Object -com shell.application).NameSpace($imDiskFile).Items())
@@ -45,10 +46,10 @@ try
 
       #Setup Python
       $pythonUrl = "https://www.python.org/ftp/python/2.7.7/python-2.7.7.amd64.msi"
-      $pythonFile = "$ENV:Temp\python2.7.msi"
+      $pythonFile = "$admFolder\python2.7.msi"
 
       $pipUrl = "https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py"
-      $pipFile = "$ENV:Temp\pip.py"
+      $pipFile = "$admFolder\pip.py"
 
       Invoke-WebRequest $pythonUrl -OutFile $pythonFile
       Invoke-WebRequest $pipUrl -OutFile $pipFile
@@ -70,16 +71,19 @@ try
       Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
 
       # Downloading PuppetAgent and pointing to server
-      $puppetUrl = "http://downloads.puppetlabs.com/windows/puppet-3.6.0-rc1.msi"
-      $puppetFile = "$ENV:Temp\puppet-agent.msi"
+      $puppetUrl = "http://downloads.puppetlabs.com/windows/puppet-3.6.1.msi"
+      $puppetFile = "$admFolder\puppet-agent.msi"
       $masterServer = "puppet"
 
       Invoke-WebRequest $puppetUrl -OutFile $puppetFile
       Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer", /qn
       Start-Sleep -s 20 #ensure it was done
 
+      throw
       del $psWindowsUpdateFile
 
+      #Create Task to sync HostName
+      Register-ScheduledTask -Xml (get-content 'C:\Users\Administrator\Documents\meta-data.xml' | out-string) -TaskName 'Sync Hostname' -Force
       #SetComputername
       Rename-Computer "dummy"
       Restart-Computer -Force
@@ -92,7 +96,7 @@ try
 
       # Download Sysprep Config
       $sysprepUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/sysprep.xml"
-      $sysprepFile = "$ENV:Temp\sysprep.xml"
+      $sysprepFile = "$admFolder\sysprep.xml"
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
       # Expire Administrator password
