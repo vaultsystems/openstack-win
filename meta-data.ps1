@@ -1,6 +1,5 @@
 try
 {
-  Set-Content -Path "C:\TEST.TXT" -Value "testing"
   $dataUrl = "http://169.254.169.254/latest/meta-data"
   $hostName = Invoke-WebRequest "$dataUrl/local-hostname" | foreach {$_.Content}
 
