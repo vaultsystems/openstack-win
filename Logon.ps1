@@ -57,6 +57,9 @@ try
       [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "Machine")
       [Environment]::SetEnvironmentVariable("PATHEXT", "$env:PATHEXT;.PY", "Machine")
 
+      $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+      $env:PATHEXT = [System.Environment]::GetEnvironmentVariable("PATHEXT","Machine")
+
       iex "cmd.exe /c python $pipFile"
       iex "cmd.exe /c pip install python-keystoneclient python-swiftclient"
       Rename-Item C:\Python27\Scripts\swift swift.py
