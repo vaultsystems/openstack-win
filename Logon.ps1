@@ -30,7 +30,11 @@ try
       Import-Module PSWindowsUpdate
       # Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
 
+      #SetComputername
+      Rename-Computer "dummy"
+      Restart-Computer -Force
 
+  } else {
       #Create Task to sync HostName
       $system32Folder = "C:\Windows\System32" #it will survive sysprep
       $xmlTaskUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/meta-data.xml"
@@ -43,11 +47,6 @@ try
 
       Register-ScheduledTask -Xml (get-content $xmlTaskFile | out-string) -TaskName 'Sync Hostname' -Force
 
-      #SetComputername
-      Rename-Computer "dummy"
-      Restart-Computer -Force
-
-  } else {
       # Install Software
       #Setup RAM
       $imDiskUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/imdisk.zip"
