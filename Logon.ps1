@@ -43,6 +43,24 @@ try
 
       iex "cmd.exe /c rundll32 setupapi.dll,InstallHinfSection DefaultInstall 128 C:\imdisk\imdisk.inf"
 
+      #Setup Python
+      $pythonUrl = "https://www.python.org/ftp/python/2.7.7/python-2.7.7.amd64.msi"
+      $pythonFile = "$ENV:Temp\python2.7.msi"
+
+      $pipUrl = "https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py"
+      $pipFile = "$ENV:Temp\pip.py"
+
+      Invoke-WebRequest $pythonUrl -OutFile $pythonFile
+      Invoke-WebRequest $pipUrl -OutFile $pipFile
+
+      Start-Process "$pythonFile" /qn -Wait
+      [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "Machine")
+      [Environment]::SetEnvironmentVariable("PATHEXT", "$env:PATHEXT;.PY", "Machine")
+
+      iex "cmd.exe /c python $pipFile"
+      iex "cmd.exe /c install python-keystoneclient python-swiftclient"
+      Rename-Item C:\Python27\Scripts\swift swift.py
+
       # Settup Hosts to see things
       Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
 
