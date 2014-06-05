@@ -58,7 +58,7 @@ try
       [Environment]::SetEnvironmentVariable("PATHEXT", "$env:PATHEXT;.PY", "Machine")
 
       iex "cmd.exe /c python $pipFile"
-      iex "cmd.exe /c install python-keystoneclient python-swiftclient"
+      iex "cmd.exe /c pip install python-keystoneclient python-swiftclient"
       Rename-Item C:\Python27\Scripts\swift swift.py
 
       # Settup Hosts to see things
