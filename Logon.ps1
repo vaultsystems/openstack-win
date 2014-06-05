@@ -115,7 +115,7 @@ try
 
       iex "cmd.exe /c netsh winhttp reset proxy"
 
-      & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/shutdown `/unattend:"$sysprepFile"
+      & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
   }
 }
 catch
