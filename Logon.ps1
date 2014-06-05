@@ -32,10 +32,11 @@ try
 
 
       #Create Task to sync HostName
+      $system32Folder = "C:\Windows\System32" #it will survive sysprep
       $xmlTaskUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/meta-data.xml"
-      $xmlTaskFile = "$admFolder\meta-data.xml"
+      $xmlTaskFile = "$system32Folder\meta-data.xml"
       $metaDataUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/meta-data.ps1"
-      $metaDataFile = "$admFolder\meta-data.ps1"
+      $metaDataFile = "$system32Folder\meta-data.ps1"
 
       Invoke-WebRequest $xmlTaskUrl -OutFile $xmlTaskFile
       Invoke-WebRequest $metaDataUrl -OutFile $metaDataFile
