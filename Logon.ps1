@@ -31,6 +31,23 @@ try
       # Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
 
 
+      #Create Task to sync HostName
+      $xmlTaskUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/meta-data.xml"
+      $xmlTaskFile = "$admFolder\meta-data.xml"
+      $metaDataUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/meta-data.ps1"
+      $metaDataFile = "$admFolder\meta-data.ps1"
+
+      Invoke-WebRequest $xmlTaskUrl -OutFile $xmlTaskFile
+      Invoke-WebRequest $metaDataUrl -OutFile $metaDataFile
+
+      Register-ScheduledTask -Xml (get-content 'C:\Users\Administrator\Documents\meta-data.xml' | out-string) -TaskName 'Sync Hostname' -Force
+
+      #SetComputername
+      Rename-Computer "dummy"
+      Restart-Computer -Force
+
+  } else {
+      # Install Software
       #Setup RAM
       $imDiskUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/imdisk.zip"
       $imDiskFile = "$admFolder\imdisk.zip"
@@ -63,6 +80,7 @@ try
       $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
       $env:PATHEXT = [System.Environment]::GetEnvironmentVariable("PATHEXT","Machine")
 
+      #Install PIP
       iex "cmd.exe /c python $pipFile"
       iex "cmd.exe /c pip install python-keystoneclient python-swiftclient"
       Rename-Item C:\Python27\Scripts\swift swift.py
@@ -77,27 +95,9 @@ try
 
       Invoke-WebRequest $puppetUrl -OutFile $puppetFile
 
+      # Install Puppet
       Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer", /qn
 
-      $xmlTaskUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/meta-data.xml"
-      $xmlTaskFile = "$admFolder\meta-data.xml"
-      $metaDataUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/meta-data.ps1"
-      $metaDataFile = "$admFolder\meta-data.ps1"
-
-      Invoke-WebRequest $xmlTaskUrl -OutFile $xmlTaskFile
-      Invoke-WebRequest $metaDataUrl -OutFile $metaDataFile
-
-      Start-Sleep -s 20 #ensure it was done
-
-      del $psWindowsUpdateFile
-
-      #Create Task to sync HostName
-      Register-ScheduledTask -Xml (get-content 'C:\Users\Administrator\Documents\meta-data.xml' | out-string) -TaskName 'Sync Hostname' -Force
-      #SetComputername
-      Rename-Computer "dummy"
-      Restart-Computer -Force
-
-  } else {
       # Finalize and cleanup
       Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name Unattend*
       Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
