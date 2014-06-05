@@ -76,10 +76,19 @@ try
       $masterServer = "puppet"
 
       Invoke-WebRequest $puppetUrl -OutFile $puppetFile
+
       Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer", /qn
+
+      $xmlTaskUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/meta-data.xml"
+      $xmlTaskFile = "$admFolder\meta-data.xml"
+      $metaDataUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/meta-data.ps1"
+      $metaDataFile = "$admFolder\meta-data.ps1"
+
+      Invoke-WebRequest $xmlTaskUrl -OutFile $xmlTaskFile
+      Invoke-WebRequest $metaDataUrl -OutFile $metaDataFile
+
       Start-Sleep -s 20 #ensure it was done
 
-      throw
       del $psWindowsUpdateFile
 
       #Create Task to sync HostName
@@ -106,7 +115,7 @@ try
 
       iex "cmd.exe /c netsh winhttp reset proxy"
 
-      & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
+      & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/shutdown `/unattend:"$sysprepFile"
   }
 }
 catch
