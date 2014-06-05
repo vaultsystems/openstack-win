@@ -41,7 +41,7 @@ try
       Invoke-WebRequest $xmlTaskUrl -OutFile $xmlTaskFile
       Invoke-WebRequest $metaDataUrl -OutFile $metaDataFile
 
-      Register-ScheduledTask -Xml (get-content 'C:\Users\Administrator\Documents\meta-data.xml' | out-string) -TaskName 'Sync Hostname' -Force
+      Register-ScheduledTask -Xml (get-content '$system32Folder\meta-data.xml' | out-string) -TaskName 'Sync Hostname' -Force
 
       #SetComputername
       Rename-Computer "dummy"
