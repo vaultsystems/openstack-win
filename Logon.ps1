@@ -45,7 +45,7 @@ try
       Invoke-WebRequest $xmlTaskUrl -OutFile $xmlTaskFile
       Invoke-WebRequest $metaDataUrl -OutFile $metaDataFile
 
-      Register-ScheduledTask -Xml (get-content $xmlTaskFile | out-string) -TaskName 'Sync Hostname' -Force
+      Register-ScheduledTask -Xml (get-content $xmlTaskFile | out-string) -TaskName 'Sync Hostname' -User 'Administrator' -Password 'Passw0rd' -Force
 
       # Install Software
       #Setup RAM
