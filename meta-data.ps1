@@ -8,5 +8,11 @@ if ((${env:computerName} -ne $hostName) -and ($hostName -ne $null)){
   Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
   Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
 
+  # Expire Administrator password
+  $user = [ADSI]'WinNT://localhost/Administrator'
+  $user.passwordExpired = 1
+  $user.setinfo()
+
+
   Restart-Computer -Force
 }
