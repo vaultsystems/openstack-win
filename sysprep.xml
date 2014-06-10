@@ -26,7 +26,7 @@
       <AutoLogon>
         <Password>
             <Value>Passw0rd</Value>
-            <PlainText>false</PlainText>
+            <PlainText>true</PlainText>
         </Password>
         <Username>Administrator</Username>
         <Enabled>true</Enabled>
