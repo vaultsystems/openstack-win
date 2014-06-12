@@ -6,7 +6,7 @@ try
   if (${env:computername} -ne "dummy"){
       # Setup Proxy
       Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
-      # iex "cmd.exe /c netsh winhttp set proxy 10.2.0.2:3128"
+      iex "cmd.exe /c netsh winhttp set proxy 10.2.0.2:3128"
 
       # Adding all Roles
       Add-WindowsFeature -Name "NET-Framework-Core" -Source D:\sources\sxs
@@ -28,7 +28,7 @@ try
         (New-Object -com shell.application).NameSpace("$ENV:SystemRoot\System32\WindowsPowerShell\v1.0\Modules").copyhere($item, $yesToAll)
       }
       Import-Module PSWindowsUpdate
-      # Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
+      Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
 
       #SetComputername
       Rename-Computer "dummy"
