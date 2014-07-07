@@ -5,7 +5,9 @@ try
   $admFolder = "C:\Users\Administrator\Documents"
   if (${env:computername} -ne "dummy"){
       # Disable IPv6
-      Disable-NetAdapterBinding -InterfaceAlias Ethernet -ComponentID ms_tcpip6
+      # Disable-NetAdapterBinding -InterfaceAlias Ethernet -ComponentID ms_tcpip6
+      # Disable DnsClient
+      Set-Service -name Dnscache -startupType Disabled
 
       # Setup Proxy
       Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
