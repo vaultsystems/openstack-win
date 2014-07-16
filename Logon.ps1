@@ -101,7 +101,7 @@ try
       Invoke-WebRequest $puppetUrl -OutFile $puppetFile
 
       # Install Puppet
-      Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer", /qn
+      Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer PUPPET_AGENT_STARTUP_MODE=Disabled", /qn
 
       Start-Sleep -s 60 #ensure it was done
       # Finalize and cleanup

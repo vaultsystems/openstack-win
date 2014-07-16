@@ -16,6 +16,6 @@ if ((${env:computerName} -ne $hostName) -and ($hostName -ne $null)){
 
     Set-Content -Path "$finishFlag" -Value "done"
   }
-
+  Set-Service -name puppet -startupType Automatic
   Rename-Computer $hostName -Force -Restart
 }
