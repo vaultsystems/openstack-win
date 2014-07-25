@@ -19,6 +19,7 @@ function fetch_data(){
         Set-Content -Path "$finishFlag" -Value "done"
       }
       Set-Service -name puppet -startupType Automatic
+      $services = Get-WMIObject win32_service | Where-Object {$_.description -imatch "puppet" -and $_.startmode -eq "Auto"}; foreach ($service in $services){sc.exe failure $service.name reset= 86400 actions= restart/5000}
       Rename-Computer $hostName -Force -Restart
     }
     } catch {
