@@ -87,10 +87,10 @@ try
 
       #Install PIP
       iex "cmd.exe /c python $pipFile"
-      iex "cmd.exe /c pip install python-keystoneclient python-swiftclient six"
-      Rename-Item C:\Python27\Scripts\swift swift.py
+      iex "cmd.exe /c easy_install six python-keystoneclient python-swiftclient"
+      Copy-Item C:\Python27\Lib\site-packages\swiftclient\shell.py C:\Python27\Scripts\swift.py
 
-      # Settup Hosts to see things
+      # Setup Hosts to see things
       # Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
 
       # Downloading PuppetAgent and pointing to server
