@@ -70,12 +70,6 @@ try
       $pythonUrl = "https://www.python.org/ftp/python/2.7.8/python-2.7.8.amd64.msi"
       $pythonFile = "$admFolder\python2.7.msi"
 
-      $pipUrl = "https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py"
-      $pipFile = "$admFolder\pip.py"
-
-      Invoke-WebRequest $pythonUrl -OutFile $pythonFile
-      Invoke-WebRequest $pipUrl -OutFile $pipFile
-
       Start-Process "$pythonFile" /qn -Wait
       Start-Sleep -s 20 #ensure it was done
 
@@ -85,12 +79,10 @@ try
       $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
       $env:PATHEXT = [System.Environment]::GetEnvironmentVariable("PATHEXT","Machine")
 
-      #Install PIP
-      iex "cmd.exe /c python $pipFile"
-      iex "cmd.exe /c pip install python-keystoneclient python-swiftclient six"
-      Rename-Item C:\Python27\Scripts\swift swift.py
+      iex "cmd.exe /c easy_install six python-keystoneclient python-swiftclient"
+      Copy-Item C:\Python27\Lib\site-packages\swiftclient\shell.py C:\Python27\Scripts\swift.py
 
-      # Settup Hosts to see things
+      # Setup Hosts to see things
       # Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
 
       # Downloading PuppetAgent and pointing to server
