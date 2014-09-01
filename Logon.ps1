@@ -67,7 +67,7 @@ try
       iex "cmd.exe /c rundll32 setupapi.dll,InstallHinfSection DefaultInstall 128 C:\imdisk\imdisk.inf"
 
       #Setup Python
-      $pythonUrl = "https://www.python.org/ftp/python/2.7.7/python-2.7.7.amd64.msi"
+      $pythonUrl = "https://www.python.org/ftp/python/2.7.8/python-2.7.8.amd64.msi"
       $pythonFile = "$admFolder\python2.7.msi"
 
       $pipUrl = "https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py"
@@ -87,7 +87,7 @@ try
 
       #Install PIP
       iex "cmd.exe /c python $pipFile"
-      iex "cmd.exe /c pip install python-keystoneclient python-swiftclient"
+      iex "cmd.exe /c pip install python-keystoneclient python-swiftclient six"
       Rename-Item C:\Python27\Scripts\swift swift.py
 
       # Settup Hosts to see things
