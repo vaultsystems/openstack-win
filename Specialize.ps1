@@ -10,7 +10,7 @@ try
 
     $Host.UI.RawUI.WindowTitle = "Downloading FirstLogon script..."
     $temp = "$ENV:SystemRoot\Temp"
-    $baseUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master"
+    $baseUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master"
     (new-object System.Net.WebClient).DownloadFile("$baseUrl/FirstLogon.ps1", "$temp\FirstLogon.ps1")
 }
 catch

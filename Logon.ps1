@@ -23,7 +23,7 @@ try
       Add-WindowsFeature -Name "RDS-Licensing"
 
       # Download and apply updates
-      $psWindowsUpdateUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/PSWindowsUpdate.zip"
+      $psWindowsUpdateUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/PSWindowsUpdate.zip"
       $psWindowsUpdateFile = "$admFolder\PSWindowsUpdate.zip"
 
       Invoke-WebRequest $psWindowsUpdateUrl -OutFile $psWindowsUpdateFile
@@ -42,9 +42,9 @@ try
   } else {
       #Create Task to sync HostName
       $system32Folder = "C:\Windows\System32" #it will survive sysprep
-      $xmlTaskUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/meta-data.xml"
+      $xmlTaskUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/meta-data.xml"
       $xmlTaskFile = "$system32Folder\meta-data.xml"
-      $metaDataUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/meta-data.ps1"
+      $metaDataUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/meta-data.ps1"
       $metaDataFile = "$system32Folder\meta-data.ps1"
 
       Invoke-WebRequest $xmlTaskUrl -OutFile $xmlTaskFile
@@ -54,7 +54,7 @@ try
 
       # Install Software
       #Setup RAM
-      $imDiskUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/imdisk.zip"
+      $imDiskUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/imdisk.zip"
       $imDiskFile = "$admFolder\imdisk.zip"
 
       Invoke-WebRequest $imDiskUrl -OutFile $imDiskFile
@@ -88,7 +88,7 @@ try
       #Install PIP
       iex "cmd.exe /c python $pipFile"
       iex "cmd.exe /c easy_install six python-keystoneclient python-swiftclient"
-      Copy-Item C:\Python27\Lib\site-packages\swiftclient\shell.py C:\Python27\Scripts\swift.py
+      Rename-Item C:\Python27\Scripts\swift swift.py
 
       # Setup Hosts to see things
       # Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
@@ -110,7 +110,7 @@ try
       # Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
 
       # Download Sysprep Config
-      $sysprepUrl = "https://raw.githubusercontent.com/jnsolutions/openstack-win/master/sysprep.xml"
+      $sysprepUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/sysprep.xml"
       $sysprepFile = "$admFolder\sysprep.xml"
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
