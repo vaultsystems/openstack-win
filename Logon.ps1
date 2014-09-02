@@ -87,7 +87,7 @@ try
 
       #Install PIP
       iex "cmd.exe /c python $pipFile"
-      iex "cmd.exe /c easy_install six python-keystoneclient python-swiftclient"
+      iex "cmd.exe /c easy_install -Z six python-keystoneclient python-swiftclient"
       Rename-Item C:\Python27\Scripts\swift swift.py
 
       # Setup Hosts to see things
