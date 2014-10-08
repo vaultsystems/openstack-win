@@ -36,8 +36,8 @@ try
       Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
 
       #SetComputername
-      Rename-Computer "dummy"
-      Restart-Computer -Force
+      #Rename-Computer "dummy"
+      #Restart-Computer -Force
 
   } else {
       #Create Task to sync HostName
