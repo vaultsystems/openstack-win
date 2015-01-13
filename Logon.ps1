@@ -85,10 +85,12 @@ try
       $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
       $env:PATHEXT = [System.Environment]::GetEnvironmentVariable("PATHEXT","Machine")
 
-      #Install PIP
+      # Install PIP
       iex "cmd.exe /c python $pipFile"
+      # netifaces wants to have MSVC installed when using easy_install. Using pip as workaround.
+      iex "cmd.exe /c pip install netifaces"
       iex "cmd.exe /c easy_install -Z six python-keystoneclient python-swiftclient"
-      Rename-Item C:\Python27\Scripts\swift swift.py
+      Rename-Item C:\Python27\Scripts\swift-script.py swift.py
 
       # Setup Hosts to see things
       # Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
