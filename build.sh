@@ -1,6 +1,6 @@
 IMAGE=windows-server-2012-r2.raw
 FLOPPY=Autounattend.vfd
-VIRTIO=virtio-win-0.1-81
+VIRTIO=virtio-win-0.1-94
 ISO=$1
 
 wget -nc http://alt.fedoraproject.org/pub/alt/virtio-win/archives/$VIRTIO/$VIRTIO.iso
