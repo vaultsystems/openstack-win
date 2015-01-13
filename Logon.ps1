@@ -90,7 +90,7 @@ try
       # netifaces wants to have MSVC installed when using easy_install. Using pip as workaround.
       iex "cmd.exe /c pip install netifaces"
       iex "cmd.exe /c easy_install -Z six python-keystoneclient python-swiftclient"
-      Rename-Item C:\Python27\Scripts\swift-script.py swift.py
+      Copy-Item C:\Python27\Scripts\swift-script.py C:\Python27\Scripts\swift.py
 
       # Setup Hosts to see things
       # Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
