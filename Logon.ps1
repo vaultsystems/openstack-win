@@ -116,6 +116,12 @@ try
       $cloudinitInstaller = "$admFolder\CloudbaseInitSetup.msi"
       Invoke-WebRequest $cloudinitUrl -OutFile $cloudinitInstaller
       Start-Process -FilePath msiexec -ArgumentList " /i $admFolder\CloudbaseInitSetup.msi /qn /l*v $admFolder\Cloudbase_Install.log" -Wait
+      
+      # Install Git
+      $gitUrl="https://storage.vaultsystems.com.au:8443/v1/AUTH_ce22708eef5043b39755a632a9676a1d/public/Git-1.9.5-preview20150319.exe"
+      $gitInstaller = "$admFolder\GitInstall.exe"
+      Invoke-WebRequest $gitUrl -OutFile $gitInstaller
+      Start-Process -FilePath $gitInstaller -ArgumentList " /SILENT, /COMPONENTS='icons,ext\reg\shellhere,assoc,assoc_sh'" -Wait
 
 
       # Download Sysprep Config
