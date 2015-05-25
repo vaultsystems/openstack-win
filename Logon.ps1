@@ -115,7 +115,7 @@ try
       $cloudinitUrl="https://www.cloudbase.it/downloads/CloudbaseInitSetup_x64.msi"
       $cloudinitInstaller = "$admFolder\CloudbaseInitSetup.msi"
       Invoke-WebRequest $cloudinitUrl -OutFile $cloudinitInstaller
-      Start-Process -FilePath msiexec -ArgumentList " /i"," $admFolder\CloudbaseInitSetup.msi"," /qn"," /l*v"," C:\temp\Cloudbase_Install.log" -Wait
+      Start-Process -FilePath msiexec -ArgumentList " /i $admFolder\CloudbaseInitSetup.msi /qn /l*v $admFolder\Cloudbase_Install.log" -Wait
 
 
       # Download Sysprep Config
