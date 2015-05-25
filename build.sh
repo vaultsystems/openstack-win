@@ -3,7 +3,7 @@ FLOPPY=Autounattend.vfd
 VIRTIO=virtio-win-0.1-81
 ISO=$1
 
-wget --quiet -nc http://alt.fedoraproject.org/pub/alt/virtio-win/archives/$VIRTIO/$VIRTIO.iso
+wget --quiet -nc https://fedorapeople.org/groups/virt/virtio-win/deprecated-isos/archives/$VIRTIO/$VIRTIO.iso
 
 KVM=/usr/libexec/qemu-kvm
 if [ ! -f "$KVM" ]; then
