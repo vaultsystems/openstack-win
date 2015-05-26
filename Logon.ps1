@@ -118,10 +118,11 @@ try
       Start-Process -FilePath msiexec -ArgumentList " /i $admFolder\CloudbaseInitSetup.msi /qn /l*v $admFolder\Cloudbase_Install.log" -Wait
       
       # Install Git
-      $gitUrl="https://storage.vaultsystems.com.au:8443/v1/AUTH_ce22708eef5043b39755a632a9676a1d/public/Git-1.9.5-preview20150319.exe"
+      $gitUrl="https://github.com/msysgit/msysgit/releases/download/Git-1.9.5-preview20150319/Git-1.9.5-preview20150319.exe"
       $gitInstaller = "$admFolder\GitInstall.exe"
       Invoke-WebRequest $gitUrl -OutFile $gitInstaller
-      Start-Process -FilePath $gitInstaller -ArgumentList " /SILENT, /COMPONENTS='icons,ext\reg\shellhere,assoc,assoc_sh'" -Wait
+      Start-Process -FilePath $gitInstaller -ArgumentList  /SILENT, /COMPONENTS='icons,ext\reg\shellhere,assoc,assoc_sh' -Wait
+      [Environment]::SetEnvironmentVariable("Path",$env:Path + "C:\Program Files (x86)\Git\cmd")
 
 
       # Download Sysprep Config
