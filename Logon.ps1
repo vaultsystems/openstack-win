@@ -122,7 +122,6 @@ try
       $gitInstaller = "$admFolder\GitInstall.exe"
       Invoke-WebRequest $gitUrl -OutFile $gitInstaller
       Start-Process -FilePath $gitInstaller -ArgumentList  /SILENT, /COMPONENTS='icons,ext\reg\shellhere,assoc,assoc_sh' -Wait
-      CMD /C 'setx PATH "%PATH%;C:\Program Files (x86)\Git\cmd" /M'
 
 
       # Download Sysprep Config
