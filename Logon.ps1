@@ -26,14 +26,14 @@ try
       $psWindowsUpdateUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/PSWindowsUpdate.zip"
       $psWindowsUpdateFile = "$admFolder\PSWindowsUpdate.zip"
 
-      #Invoke-WebRequest $psWindowsUpdateUrl -OutFile $psWindowsUpdateFile
-      #foreach($item in (New-Object -com shell.application).NameSpace($psWindowsUpdateFile).Items())
-      #{
-      #  $yesToAll = 16
-      #  (New-Object -com shell.application).NameSpace("$ENV:SystemRoot\System32\WindowsPowerShell\v1.0\Modules").copyhere($item, $yesToAll)
-      #}
-      #Import-Module PSWindowsUpdate
-      #Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
+      Invoke-WebRequest $psWindowsUpdateUrl -OutFile $psWindowsUpdateFile
+      foreach($item in (New-Object -com shell.application).NameSpace($psWindowsUpdateFile).Items())
+      {
+        $yesToAll = 16
+        (New-Object -com shell.application).NameSpace("$ENV:SystemRoot\System32\WindowsPowerShell\v1.0\Modules").copyhere($item, $yesToAll)
+      }
+      Import-Module PSWindowsUpdate
+      Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
 
       #SetComputername
       Rename-Computer "dummy"
@@ -122,7 +122,7 @@ try
       $gitInstaller = "$admFolder\GitInstall.exe"
       Invoke-WebRequest $gitUrl -OutFile $gitInstaller
       Start-Process -FilePath $gitInstaller -ArgumentList  /SILENT, /COMPONENTS='icons,ext\reg\shellhere,assoc,assoc_sh' -Wait
-      [Environment]::SetEnvironmentVariable("Path",$env:Path + ";C:\Program Files (x86)\Git\cmd")
+      CMD /C 'setx PATH "%PATH%;C:\Program Files (x86)\Git\cmd" /M'
 
 
       # Download Sysprep Config
