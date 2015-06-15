@@ -7,6 +7,6 @@ time ./build.sh $ISO
 glance image-create --name "$GLANCE_NAME" --property description=$ISO --property os_type=windows --disk-format raw --container-format bare --is-public true < windows-server-2012-r2.raw
 TROOP_IMAGE=`glance image-list | grep "Windows 2012 R2 autobuild" | head -1 | awk '{ print $2}'`
 ID=`cinder create --image-id=$TROOP_IMAGE 25 | grep " id " | awk '{ print $4}'`
-sleep 1200
+sleep 3600
 cinder show $ID
 cinder delete $ID
