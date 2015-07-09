@@ -12,7 +12,7 @@ Note: we consider that target system is x64
 
 You'll need your Windows installation ISO and the virtio driver ISO:
 
-	https://alt.fedoraproject.org/pub/alt/virtio-win/latest/virtio-win-0.1-74.iso
+	https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
 
 Then run:
 
