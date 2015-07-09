@@ -1,9 +1,9 @@
 IMAGE=windows-server-2012-r2.raw
 FLOPPY=Autounattend.vfd
-VIRTIO=virtio-win-0.1-81
+VIRTIO=virtio-win-0.1-96
 ISO=$1
 
-wget --quiet -nc http://alt.fedoraproject.org/pub/alt/virtio-win/archives/$VIRTIO/$VIRTIO.iso
+wget --quiet -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
 
 KVM=/usr/libexec/qemu-kvm
 if [ ! -f "$KVM" ]; then
