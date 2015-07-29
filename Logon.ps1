@@ -96,7 +96,7 @@ try
       # Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
 
       # Downloading PuppetAgent and pointing to server
-      $puppetUrl = "http://downloads.puppetlabs.com/windows/puppet-3.6.1.msi"
+      $puppetUrl = "http://downloads.puppetlabs.com/windows/puppet-3.6.2.msi"
       $puppetFile = "$admFolder\puppet-agent.msi"
       $masterServer = "puppet"
 
