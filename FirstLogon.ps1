@@ -72,7 +72,7 @@ $logonScriptPath = "$ENV:SystemRoot\Temp\Logon.ps1"
 try
 {
     $Host.UI.RawUI.WindowTitle = "Downloading Logon script..."
-    $baseUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master"
+    $baseUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/cloudinit"
     (new-object System.Net.WebClient).DownloadFile("$baseUrl/Logon.ps1", $logonScriptPath)
 
     $virtPlatform = (gwmi Win32_ComputerSystem).Model

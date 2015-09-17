@@ -23,7 +23,7 @@ try
       Add-WindowsFeature -Name "RDS-Licensing"
 
       # Download and apply updates
-      $psWindowsUpdateUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/PSWindowsUpdate.zip"
+      $psWindowsUpdateUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/cloudinit/PSWindowsUpdate.zip"
       $psWindowsUpdateFile = "$admFolder\PSWindowsUpdate.zip"
 
       Invoke-WebRequest $psWindowsUpdateUrl -OutFile $psWindowsUpdateFile
@@ -42,9 +42,9 @@ try
   } else {
       #Create Task to sync HostName
       $system32Folder = "C:\Windows\System32" #it will survive sysprep
-      $xmlTaskUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/meta-data.xml"
+      $xmlTaskUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/cloudinit/meta-data.xml"
       $xmlTaskFile = "$system32Folder\meta-data.xml"
-      $metaDataUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/meta-data.ps1"
+      $metaDataUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/cloudinit/meta-data.ps1"
       $metaDataFile = "$system32Folder\meta-data.ps1"
 
       Invoke-WebRequest $xmlTaskUrl -OutFile $xmlTaskFile
@@ -54,7 +54,7 @@ try
 
       # Install Software
       #Setup RAM
-      $imDiskUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/imdisk.zip"
+      $imDiskUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/cloudinit/imdisk.zip"
       $imDiskFile = "$admFolder\imdisk.zip"
 
       Invoke-WebRequest $imDiskUrl -OutFile $imDiskFile
@@ -124,7 +124,7 @@ try
       Start-Process -FilePath $gitInstaller -ArgumentList  /SILENT, /COMPONENTS='icons,ext\reg\shellhere,assoc,assoc_sh' -Wait
 
       # Download Sysprep Config
-      $sysprepUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/sysprep.xml"
+      $sysprepUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/cloudinit/sysprep.xml"
       $sysprepFile = "$admFolder\sysprep.xml"
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
