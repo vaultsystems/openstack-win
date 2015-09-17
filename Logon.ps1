@@ -10,8 +10,8 @@ try
       Set-Service -name Dnscache -startupType Disabled
 
       # Setup Proxy
-      # Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
-      # iex "cmd.exe /c netsh winhttp set proxy 10.2.0.2:3128"
+      Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
+      iex "cmd.exe /c netsh winhttp set proxy 10.2.0.2:3128"
 
       # Adding all Roles
       Add-WindowsFeature -Name "NET-Framework-Core" -Source D:\sources\sxs
@@ -123,12 +123,13 @@ try
       Invoke-WebRequest $gitUrl -OutFile $gitInstaller
       Start-Process -FilePath $gitInstaller -ArgumentList  /SILENT, /COMPONENTS='icons,ext\reg\shellhere,assoc,assoc_sh' -Wait
 
+
       # Download Sysprep Config
       $sysprepUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/cloudinit/sysprep.xml"
       $sysprepFile = "$admFolder\sysprep.xml"
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
-      #iex "cmd.exe /c netsh winhttp reset proxy"
+      iex "cmd.exe /c netsh winhttp reset proxy"
 
       & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
   }
