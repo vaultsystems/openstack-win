@@ -1,6 +1,6 @@
 IMAGE=windows-server-2012-r2.raw
 FLOPPY=Autounattend.vfd
-VIRTIO=virtio-win-0.1-81.iso
+VIRTIO=virtio-win-0.1-100.iso
 ISO=$1
 
 wget --quiet -nc http://ftp.sleepgate.ru/drivers/NET/virtio-win/$VIRTIO
