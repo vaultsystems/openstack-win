@@ -1,9 +1,9 @@
 IMAGE=windows-server-2012-r2.raw
 FLOPPY=Autounattend.vfd
-VIRTIO=virtio-win-0.1.110
+VIRTIO=virtio-win-0.1.110-2
 ISO=$1
 
-wget -q https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/$VIRTIO/virtio-win.iso -O virtio-win.iso
+wget -nv https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/$VIRTIO/virtio-win.iso -O virtio-win.iso
 ./convert_virtio_iso.sh virtio-win.iso virtio-converted.iso
 
 KVM=/usr/libexec/qemu-kvm
