@@ -1,6 +1,6 @@
 IMAGE=windows-server-2012-r2.raw
 FLOPPY=Autounattend.vfd
-VIRTIO=virtio-win-0.1-110
+VIRTIO=virtio-win-0.1.110
 ISO=$1
 
 wget -q https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/$VIRTIO/virtio-win.iso -O virtio-win.iso
