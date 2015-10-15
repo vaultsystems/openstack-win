@@ -128,7 +128,7 @@ try
       $sysprepFile = "$admFolder\sysprep.xml"
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
-      #iex "cmd.exe /c netsh winhttp reset proxy"
+      # iex "cmd.exe /c netsh winhttp reset proxy"
 
       & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
   }
