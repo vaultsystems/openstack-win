@@ -110,18 +110,18 @@ try
       Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name Unattend*
       # Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
       # Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
-
+      
       # Download and Install Cloud-Init
-      # $cloudinitUrl="https://www.cloudbase.it/downloads/CloudbaseInitSetup_x64.msi"
-      # $cloudinitInstaller = "$admFolder\CloudbaseInitSetup.msi"
-      # Invoke-WebRequest $cloudinitUrl -OutFile $cloudinitInstaller
-      #Start-Process -FilePath msiexec -ArgumentList " /i $admFolder\CloudbaseInitSetup.msi /qn /l*v $admFolder\Cloudbase_Install.log" -Wait
-
+      $cloudinitUrl="https://www.cloudbase.it/downloads/CloudbaseInitSetup_x64.msi"
+      $cloudinitInstaller = "$admFolder\CloudbaseInitSetup.msi"
+      Invoke-WebRequest $cloudinitUrl -OutFile $cloudinitInstaller
+      Start-Process -FilePath msiexec -ArgumentList " /i $admFolder\CloudbaseInitSetup.msi /qn /l*v $admFolder\Cloudbase_Install.log" -Wait
+      
       # Install Git
-      # $gitUrl="https://github.com/msysgit/msysgit/releases/download/Git-1.9.5-preview20150319/Git-1.9.5-preview20150319.exe"
-      # $gitInstaller = "$admFolder\GitInstall.exe"
-      # Invoke-WebRequest $gitUrl -OutFile $gitInstaller
-      # Start-Process -FilePath $gitInstaller -ArgumentList  /SILENT, /COMPONENTS='icons,ext\reg\shellhere,assoc,assoc_sh' -Wait
+      $gitUrl="https://github.com/msysgit/msysgit/releases/download/Git-1.9.5-preview20150319/Git-1.9.5-preview20150319.exe"
+      $gitInstaller = "$admFolder\GitInstall.exe"
+      Invoke-WebRequest $gitUrl -OutFile $gitInstaller
+      Start-Process -FilePath $gitInstaller -ArgumentList  /SILENT, /COMPONENTS='icons,ext\reg\shellhere,assoc,assoc_sh' -Wait
 
       # Download Sysprep Config
       $sysprepUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/cloudinit/sysprep.xml"
