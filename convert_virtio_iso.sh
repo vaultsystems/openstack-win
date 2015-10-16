@@ -9,5 +9,5 @@ NEW=/tmp/new_virtio
 mkdir -p $NEW/WIN8/AMD64 $ORIG
 7z x $1 -o$ORIG
 find $ORIG -type f -wholename '*2k12/amd64*' -exec mv {} $NEW/WIN8/AMD64/ \;
-mkisofs -o $2 $NEW
+mkisofs -r -J -o $2 $NEW
 rm -rf $NEW $ORIG
