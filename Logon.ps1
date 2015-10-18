@@ -116,7 +116,7 @@ try
       $cloudinitInstaller = "$admFolder\CloudbaseInitSetup.msi"
       Invoke-WebRequest $cloudinitUrl -OutFile $cloudinitInstaller
       Start-Process -FilePath msiexec -ArgumentList " /i $admFolder\CloudbaseInitSetup.msi /qn /l*v $admFolder\Cloudbase_Install.log" -Wait
-      New-Item "hklm:\Software\Cloudbase Solutions\Cloudbase-Init" -Force
+      New-Item "hklm:\Software\Wow6432Node\Cloudbase Solutions\Cloudbase-Init" -Force
       
       # Install Git
       $gitUrl="https://github.com/msysgit/msysgit/releases/download/Git-1.9.5-preview20150319/Git-1.9.5-preview20150319.exe"
