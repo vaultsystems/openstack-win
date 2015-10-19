@@ -2,6 +2,7 @@ $ErrorActionPreference = "Stop"
 
 try
 {
+    Set-ItemProperty "HKLM:\SYSTEM\Setup\Status\ChildCompletion" -name setup.exe -value 3
     # Enable ping (ICMP Echo Request on IPv4 and IPv6)
     # TODO: replace with with a netsh advfirewall command
     # possibly avoiding duplicates with "File and printer sharing (Echo Request - ICMPv[4,6]-In)"
