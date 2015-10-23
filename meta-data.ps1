@@ -16,6 +16,11 @@ function fetch_data(){
         $user.passwordExpired = 1
         $user.setinfo()
 
+        # resize drive C:
+        $drive_c = (Get-Partition -DriveLetter C)
+        $size = Get-PartitionSupportedSize -DiskNumber $drive_c.DiskNumber -PartitionNumber $drive_c.PartitionNumber
+        Resize-Partition -DiskNumber $drive_c.DiskNumber -PartitionNumber $drive_c.PartitionNumber -Size $size.SizeMax
+
         Set-Content -Path "$finishFlag" -Value "done"
       }
       Set-Service -name puppet -startupType Automatic
