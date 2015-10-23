@@ -111,6 +111,12 @@ try
       # Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
       # Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
 
+      # Install Git
+      $gitUrl="https://github.com/msysgit/msysgit/releases/download/Git-1.9.5-preview20150319/Git-1.9.5-preview20150319.exe"
+      $gitInstaller = "$admFolder\GitInstall.exe"
+      Invoke-WebRequest $gitUrl -OutFile $gitInstaller
+      Start-Process -FilePath $gitInstaller -ArgumentList  /SILENT, /COMPONENTS='icons,ext\reg\shellhere,assoc,assoc_sh' -Wait
+
       # Download Sysprep Config
       $sysprepUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/sysprep.xml"
       $sysprepFile = "$admFolder\sysprep.xml"
