@@ -1,0 +1,8 @@
+[Setup]
+Lang=default
+Dir=C:\Program Files\Git
+Group=Git
+NoIcons=1
+SetupType=default
+Components=ext,ext\shellhere,assoc,assoc_sh
+Tasks=
