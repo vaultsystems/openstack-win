@@ -114,8 +114,12 @@ try
       # Install Git
       $gitUrl="https://github.com/git-for-windows/git/releases/download/v2.6.3.windows.1/Git-2.6.3-64-bit.exe"
       $gitInstaller = "$admFolder\GitInstall.exe"
+      $gitInfUrl="https://raw.githubusercontent.com/vaultsystems/openstack-win/master/git_setup.inf"
+      $gitInfFile="$admFolder\git_setup.inf"
+
       Invoke-WebRequest $gitUrl -OutFile $gitInstaller
-      Start-Process -FilePath $gitInstaller -ArgumentList  /VERYSILENT, /SUPPRESMSGBOXES, /SP-, /COMPONENTS='ext,ext\shellhere,ext\guihere,assoc,assoc_sh' -Wait
+      Invoke-WebRequest $gitInf -OutFile $gitInfFile
+      Start-Process -FilePath $gitInstaller -ArgumentList /SILENT, /LOADINF=$gitInfFile -Wait
 
       # Download Sysprep Config
       $sysprepUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/sysprep.xml"
