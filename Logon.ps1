@@ -118,7 +118,7 @@ try
       $gitInfFile="$admFolder\git_setup.inf"
 
       Invoke-WebRequest $gitUrl -OutFile $gitInstaller
-      Invoke-WebRequest $gitInf -OutFile $gitInfFile
+      Invoke-WebRequest $gitInfUrl -OutFile $gitInfFile
       Start-Process -FilePath $gitInstaller -ArgumentList /SILENT, /LOADINF=$gitInfFile -Wait
 
       # Download Sysprep Config
