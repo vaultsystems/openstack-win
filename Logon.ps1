@@ -111,6 +111,12 @@ try
       # Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
       # Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
 
+      # Download and Install Cloud-Init
+      $cloudinitUrl="https://www.cloudbase.it/downloads/CloudbaseInitSetup_Stable_x64.msi"
+      $cloudinitInstaller = "$admFolder\CloudbaseInitSetup.msi"
+      Invoke-WebRequest $cloudinitUrl -OutFile $cloudinitInstaller
+      Start-Process -FilePath msiexec -ArgumentList " /i $admFolder\CloudbaseInitSetup.msi /qn /l*v $admFolder\Cloudinit_Install.log" -Wait
+
       # Install Git
       $gitUrl="https://github.com/git-for-windows/git/releases/download/v2.6.3.windows.1/Git-2.6.3-64-bit.exe"
       $gitInstaller = "$admFolder\GitInstall.exe"
