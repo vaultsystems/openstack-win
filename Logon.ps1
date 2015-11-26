@@ -32,25 +32,25 @@ try
         $yesToAll = 16
         (New-Object -com shell.application).NameSpace("$ENV:SystemRoot\System32\WindowsPowerShell\v1.0\Modules").copyhere($item, $yesToAll)
       }
-      Import-Module PSWindowsUpdate
-      Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
+      # Import-Module PSWindowsUpdate
+      # Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
 
       #SetComputername
       Rename-Computer "dummy"
       Restart-Computer -Force
 
   } else {
-      #Create Task to sync HostName
-      $system32Folder = "C:\Windows\System32" #it will survive sysprep
-      $xmlTaskUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/meta-data.xml"
-      $xmlTaskFile = "$system32Folder\meta-data.xml"
-      $metaDataUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/meta-data.ps1"
-      $metaDataFile = "$system32Folder\meta-data.ps1"
+      # #Create Task to sync HostName
+      # $system32Folder = "C:\Windows\System32" #it will survive sysprep
+      # $xmlTaskUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/meta-data.xml"
+      # $xmlTaskFile = "$system32Folder\meta-data.xml"
+      # $metaDataUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/meta-data.ps1"
+      # $metaDataFile = "$system32Folder\meta-data.ps1"
 
-      Invoke-WebRequest $xmlTaskUrl -OutFile $xmlTaskFile
-      Invoke-WebRequest $metaDataUrl -OutFile $metaDataFile
+      # Invoke-WebRequest $xmlTaskUrl -OutFile $xmlTaskFile
+      # Invoke-WebRequest $metaDataUrl -OutFile $metaDataFile
 
-      Register-ScheduledTask -Xml (get-content $xmlTaskFile | out-string) -TaskName 'Sync Hostname' -User 'Administrator' -Password 'Passw0rd' -Force
+      # Register-ScheduledTask -Xml (get-content $xmlTaskFile | out-string) -TaskName 'Sync Hostname' -User 'Administrator' -Password 'Passw0rd' -Force
 
       # Install Software
       #Setup RAM
@@ -103,7 +103,7 @@ try
       Invoke-WebRequest $puppetUrl -OutFile $puppetFile
 
       # Install Puppet
-      Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer PUPPET_AGENT_STARTUP_MODE=Disabled", /qn
+      Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer", /qn
 
       Start-Sleep -s 60 #ensure it was done
       # Finalize and cleanup

@@ -18,21 +18,6 @@
         <SkipMachineOOBE>true</SkipMachineOOBE>
         <SkipUserOOBE>true</SkipUserOOBE>
       </OOBE>
-      <UserAccounts>
-          <AdministratorPassword>
-              <Value>Passw0rd</Value>
-              <PlainText>true</PlainText>
-          </AdministratorPassword>
-      </UserAccounts>
-      <AutoLogon>
-        <Password>
-            <Value>Passw0rd</Value>
-            <PlainText>true</PlainText>
-        </Password>
-        <Username>Administrator</Username>
-        <Enabled>true</Enabled>
-        <LogonCount>1</LogonCount>
-      </AutoLogon>
     </component>
   </settings>
   <settings pass="specialize">
