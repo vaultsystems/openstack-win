@@ -40,18 +40,6 @@ try
       Restart-Computer -Force
 
   } else {
-      # #Create Task to sync HostName
-      # $system32Folder = "C:\Windows\System32" #it will survive sysprep
-      # $xmlTaskUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/meta-data.xml"
-      # $xmlTaskFile = "$system32Folder\meta-data.xml"
-      # $metaDataUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/meta-data.ps1"
-      # $metaDataFile = "$system32Folder\meta-data.ps1"
-
-      # Invoke-WebRequest $xmlTaskUrl -OutFile $xmlTaskFile
-      # Invoke-WebRequest $metaDataUrl -OutFile $metaDataFile
-
-      # Register-ScheduledTask -Xml (get-content $xmlTaskFile | out-string) -TaskName 'Sync Hostname' -User 'Administrator' -Password 'Passw0rd' -Force
-
       # Install Software
       #Setup RAM
       $imDiskUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/imdisk.zip"
@@ -67,7 +55,7 @@ try
       iex "cmd.exe /c rundll32 setupapi.dll,InstallHinfSection DefaultInstall 128 C:\imdisk\imdisk.inf"
 
       #Setup Python
-      $pythonUrl = "https://www.python.org/ftp/python/2.7.8/python-2.7.8.amd64.msi"
+      $pythonUrl = "https://www.python.org/ftp/python/2.7.10/python-2.7.10.amd64.msi"
       $pythonFile = "$admFolder\python2.7.msi"
 
       $pipUrl = "https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py"
@@ -92,9 +80,6 @@ try
       iex "cmd.exe /c easy_install -Z six python-keystoneclient python-swiftclient"
       Copy-Item C:\Python27\Scripts\swift-script.py C:\Python27\Scripts\swift.py
 
-      # Setup Hosts to see things
-      # Set-Content -Path "$ENV:SystemRoot\System32\drivers\etc\hosts" -Value "192.168.240.162 puppet"
-
       # Downloading PuppetAgent and pointing to server
       $puppetUrl = "http://downloads.puppetlabs.com/windows/puppet-3.6.2.msi"
       $puppetFile = "$admFolder\puppet-agent.msi"
@@ -106,10 +91,6 @@ try
       Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer", /qn
 
       Start-Sleep -s 60 #ensure it was done
-      # Finalize and cleanup
-      Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name Unattend*
-      # Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
-      # Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
 
       # Download and Install Cloud-Init
       $cloudinitUrl="https://www.cloudbase.it/downloads/CloudbaseInitSetup_Stable_x64.msi"
@@ -134,6 +115,8 @@ try
 
       # iex "cmd.exe /c netsh winhttp reset proxy"
 
+      # Finalize and cleanup
+      Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name Unattend*
       Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
       Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
 
