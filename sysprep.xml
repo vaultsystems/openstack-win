@@ -30,8 +30,8 @@
             <PlainText>true</PlainText>
         </Password>
         <Username>Administrator</Username>
-        <Enabled>true</Enabled>
-        <LogonCount>0</LogonCount>
+        <Enabled>false</Enabled>
+        <LogonCount>1</LogonCount>
       </AutoLogon>
     </component>
   </settings>
