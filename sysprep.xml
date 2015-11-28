@@ -18,19 +18,9 @@
         <SkipMachineOOBE>true</SkipMachineOOBE>
         <SkipUserOOBE>true</SkipUserOOBE>
       </OOBE>
-      <UserAccounts>
-          <AdministratorPassword>
-              <Value>Passw0rd</Value>
-              <PlainText>true</PlainText>
-          </AdministratorPassword>
-      </UserAccounts>
       <AutoLogon>
-        <Password>
-            <Value>Passw0rd</Value>
-            <PlainText>true</PlainText>
-        </Password>
         <Username>Administrator</Username>
-        <Enabled>true</Enabled>
+        <Enabled>false</Enabled>
         <LogonCount>0</LogonCount>
       </AutoLogon>
     </component>
