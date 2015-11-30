@@ -25,11 +25,6 @@
               <Order>1</Order>
               <RequiresUserInput>true</RequiresUserInput>
           </SynchronousCommand>
-          <SynchronousCommand wcm:action="add">
-              <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v HideFileExt /t REG_DWORD /d 0 /f</CommandLine>
-              <Order>2</Order>
-              <Description>Show file extensions in Explorer</Description>
-          </SynchronousCommand>
       </FirstLogonCommands>
       <ShowWindowsLive>false</ShowWindowsLive>
     </component>
