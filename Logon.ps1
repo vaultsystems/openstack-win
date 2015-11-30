@@ -97,12 +97,7 @@ try
       $cloudinitInstaller = "$admFolder\CloudbaseInitSetup.msi"
       Invoke-WebRequest $cloudinitUrl -OutFile $cloudinitInstaller
       Start-Process -FilePath msiexec -ArgumentList " /i $admFolder\CloudbaseInitSetup.msi /qn /l*v $admFolder\Cloudinit_Install.log" -Wait
-
       (Get-Content "C:\Program Files\Cloudbase Solutions\Cloudbase-Init\conf\cloudbase-init.conf") -replace('^username=Admin$','username=Administrator') | Set-Content "C:\Program Files\Cloudbase Solutions\Cloudbase-Init\conf\cloudbase-init.conf"
-
-      Add-Content "C:\Program Files\Cloudbase Solutions\Cloudbase-Init\LocalScripts\resize.ps1" "`$drive_c = (Get-Partition -DriveLetter C)"
-      Add-Content "C:\Program Files\Cloudbase Solutions\Cloudbase-Init\LocalScripts\resize.ps1" "`$size = Get-PartitionSupportedSize -DiskNumber `$drive_c.DiskNumber -PartitionNumber `$drive_c.PartitionNumber"
-      Add-Content "C:\Program Files\Cloudbase Solutions\Cloudbase-Init\LocalScripts\resize.ps1" "Resize-Partition -DiskNumber `$drive_c.DiskNumber -PartitionNumber `$drive_c.PartitionNumber -Size `$size.SizeMax"
 
       # Install Git
       $gitUrl="https://github.com/git-for-windows/git/releases/download/v2.6.3.windows.1/Git-2.6.3-64-bit.exe"
