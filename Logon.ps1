@@ -127,6 +127,11 @@ try
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
       # iex "cmd.exe /c netsh winhttp reset proxy"
+      $rdpRearmUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/rdp-rearm.xml"
+      $rdpRearmFile = "$admFolder\rdp-rearm.xml"
+      Invoke-WebRequest $rdpRearmUrl -OutFile $rdpRearmFile
+
+      Register-ScheduledTask -Xml (get-content $rdpRearmFile | out-string) -TaskName 'RDP Rearm' -Force
 
       & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
   }
