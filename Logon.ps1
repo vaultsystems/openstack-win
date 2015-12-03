@@ -130,7 +130,7 @@ try
       $emetFile = "$admFolder\EMET Setup.msi"
       Invoke-WebRequest $emetUrl -OutFile $emetFile
 
-      & cmd /c 'msiexec /i "EMET Setup.msi" /qn /norestart'
+      & cmd /c 'msiexec /i '$emetFile' /qn /norestart'
 
       Set-Location -Path "C:\Program Files (x86)\EMET 5.5"
 
