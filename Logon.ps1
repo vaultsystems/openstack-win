@@ -125,9 +125,9 @@ try
       $sysprepFile = "$admFolder\sysprep.xml"
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
-      $emetUrl = "https://download.microsoft.com/download/0/C/B/0CB2E31A-1CBB-4AE7-B7F7-A96CF142652A/EMET%20Setup.msi"
-      $emetFile = "$admFolder\EMET Setup.msi"
-      Invoke-WebRequest $emetUrl -OutFile $emetFile
+      # $emetUrl = "https://download.microsoft.com/download/0/C/B/0CB2E31A-1CBB-4AE7-B7F7-A96CF142652A/EMET%20Setup.msi"
+      # $emetFile = "$admFolder\EMET Setup.msi"
+      # Invoke-WebRequest $emetUrl -OutFile $emetFile
 
       #& msiexec /i $emetFile /qn /norestart
       #Start-Sleep -s 10
@@ -137,10 +137,11 @@ try
       #& .\EMET_Conf.exe -system pinning=enabled
 
       # iex "cmd.exe /c netsh winhttp reset proxy"
-      $rdpRearmUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/rdp-rearm.xml"
-      $rdpRearmFile = "$admFolder\rdp-rearm.xml"
-      Invoke-WebRequest $rdpRearmUrl -OutFile $rdpRearmFile
-      Register-ScheduledTask -Xml (get-content $rdpRearmFile | out-string) -TaskName 'RDP Rearm' -Force
+      
+      # $rdpRearmUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/rdp-rearm.xml"
+      # $rdpRearmFile = "$admFolder\rdp-rearm.xml"
+      # Invoke-WebRequest $rdpRearmUrl -OutFile $rdpRearmFile
+      # Register-ScheduledTask -Xml (get-content $rdpRearmFile | out-string) -TaskName 'RDP Rearm' -Force
 
       & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
   }
