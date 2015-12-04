@@ -99,7 +99,6 @@ try
       $puppetUrl = "http://downloads.puppetlabs.com/windows/puppet-3.6.2.msi"
       $puppetFile = "$admFolder\puppet-agent.msi"
       $masterServer = "puppet"
-
       Invoke-WebRequest $puppetUrl -OutFile $puppetFile
 
       # Install Puppet
@@ -135,16 +134,12 @@ try
       Set-Location -Path "C:\Program Files (x86)\EMET 5.5"
       & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Popular Software.xml'
       & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Recommended Software.xml'
-      & .\EMET_Conf.exe –system pinning=enabled
-
-      Restart-Service EMET_Service
+      & .\EMET_Conf.exe -system pinning=enabled
 
       # iex "cmd.exe /c netsh winhttp reset proxy"
       $rdpRearmUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/rdp-rearm.xml"
       $rdpRearmFile = "$admFolder\rdp-rearm.xml"
       Invoke-WebRequest $rdpRearmUrl -OutFile $rdpRearmFile
-
-
       Register-ScheduledTask -Xml (get-content $rdpRearmFile | out-string) -TaskName 'RDP Rearm' -Force
 
       & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
