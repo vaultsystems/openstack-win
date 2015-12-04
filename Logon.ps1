@@ -126,17 +126,16 @@ try
       $sysprepFile = "$admFolder\sysprep.xml"
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
-      $emetUrl = "https://download.microsoft.com/download/7/A/A/7AA570E7-92DF-4C28-BE12-E72831797666/EMET%20Setup.msi"
+      $emetUrl = "https://download.microsoft.com/download/0/C/B/0CB2E31A-1CBB-4AE7-B7F7-A96CF142652A/EMET%20Setup.msi"
       $emetFile = "$admFolder\EMET Setup.msi"
       Invoke-WebRequest $emetUrl -OutFile $emetFile
 
-      & cmd /c 'msiexec /i '$emetFile' /qn /norestart'
-
+      & msiexec /i $emetFile /qn /norestart
+      Start-Sleep -s 10
       Set-Location -Path "C:\Program Files (x86)\EMET 5.5"
-
-      & cmd /c '.\EMET_Conf.exe --import ".\Deployment\Protection Profiles\Popular Software.xml"'
-      & cmd /c '.\EMET_Conf.exe --import ".\Deployment\Protection Profiles\Recommended Software.xml"'
-      & cmd /c '.\EMET_Conf.exe –system pinning=enabled'
+      & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Popular Software.xml'
+      & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Recommended Software.xml'
+      & .\EMET_Conf.exe –system pinning=enabled
 
       Restart-Service EMET_Service
 
