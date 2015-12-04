@@ -57,7 +57,6 @@ try
       #Setup Python
       $pythonUrl = "https://www.python.org/ftp/python/2.7.10/python-2.7.10.amd64.msi"
       $pythonFile = "$admFolder\python2.7.msi"
-
       $pipUrl = "https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py"
       $pipFile = "$admFolder\pip.py"
 
@@ -88,7 +87,6 @@ try
 
       # Install Puppet
       Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer", /qn
-
       Start-Sleep -s 60 #ensure it was done
 
       # Download and Install Cloud-Init
@@ -108,15 +106,10 @@ try
       Invoke-WebRequest $gitInfUrl -OutFile $gitInfFile
       Start-Process -FilePath $gitInstaller -ArgumentList /SILENT, /LOADINF=$gitInfFile -Wait
 
-      # Download Sysprep Config
-      $sysprepUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/sysprep.xml"
-      $sysprepFile = "$admFolder\sysprep.xml"
-      Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
-
+      # Install EMET
       $emetUrl = "https://download.microsoft.com/download/0/C/B/0CB2E31A-1CBB-4AE7-B7F7-A96CF142652A/EMET%20Setup.msi"
       $emetFile = "$admFolder\EMET Setup.msi"
       Invoke-WebRequest $emetUrl -OutFile $emetFile
-
       & msiexec /i $emetFile /qn /norestart
       Start-Sleep -s 10
       Set-Location -Path "C:\Program Files (x86)\EMET 5.5"
@@ -124,8 +117,10 @@ try
       & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Recommended Software.xml'
       & .\EMET_Conf.exe -system pinning=enabled
 
-      iex "cmd.exe /c netsh winhttp reset proxy"
-      
+      # Proxy
+      # iex "cmd.exe /c netsh winhttp reset proxy"
+
+      # RDP rearm      
       $rdpRearmUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/rdp-rearm.xml"
       $rdpRearmFile = "$admFolder\rdp-rearm.xml"
       Invoke-WebRequest $rdpRearmUrl -OutFile $rdpRearmFile
@@ -135,6 +130,11 @@ try
       Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name Unattend*
       Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoLogonCount
       Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -name AutoAdminLogon -value 0
+
+      # Download Sysprep Config
+      $sysprepUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/sysprep.xml"
+      $sysprepFile = "$admFolder\sysprep.xml"
+      Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
       & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
   }
