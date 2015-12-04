@@ -113,23 +113,23 @@ try
       $sysprepFile = "$admFolder\sysprep.xml"
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
-      # $emetUrl = "https://download.microsoft.com/download/0/C/B/0CB2E31A-1CBB-4AE7-B7F7-A96CF142652A/EMET%20Setup.msi"
-      # $emetFile = "$admFolder\EMET Setup.msi"
-      # Invoke-WebRequest $emetUrl -OutFile $emetFile
+      $emetUrl = "https://download.microsoft.com/download/0/C/B/0CB2E31A-1CBB-4AE7-B7F7-A96CF142652A/EMET%20Setup.msi"
+      $emetFile = "$admFolder\EMET Setup.msi"
+      Invoke-WebRequest $emetUrl -OutFile $emetFile
 
-      #& msiexec /i $emetFile /qn /norestart
-      #Start-Sleep -s 10
-      #Set-Location -Path "C:\Program Files (x86)\EMET 5.5"
-      #& .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Popular Software.xml'
-      #& .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Recommended Software.xml'
-      #& .\EMET_Conf.exe -system pinning=enabled
+      & msiexec /i $emetFile /qn /norestart
+      Start-Sleep -s 10
+      Set-Location -Path "C:\Program Files (x86)\EMET 5.5"
+      & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Popular Software.xml'
+      & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Recommended Software.xml'
+      & .\EMET_Conf.exe -system pinning=enabled
 
-      # iex "cmd.exe /c netsh winhttp reset proxy"
+      iex "cmd.exe /c netsh winhttp reset proxy"
       
-      # $rdpRearmUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/rdp-rearm.xml"
-      # $rdpRearmFile = "$admFolder\rdp-rearm.xml"
-      # Invoke-WebRequest $rdpRearmUrl -OutFile $rdpRearmFile
-      # Register-ScheduledTask -Xml (get-content $rdpRearmFile | out-string) -TaskName 'RDP Rearm' -Force
+      $rdpRearmUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/rdp-rearm.xml"
+      $rdpRearmFile = "$admFolder\rdp-rearm.xml"
+      Invoke-WebRequest $rdpRearmUrl -OutFile $rdpRearmFile
+      Register-ScheduledTask -Xml (get-content $rdpRearmFile | out-string) -TaskName 'RDP Rearm' -Force
 
       # Finalize and cleanup
       Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name Unattend*
