@@ -129,12 +129,12 @@ try
       $emetFile = "$admFolder\EMET Setup.msi"
       Invoke-WebRequest $emetUrl -OutFile $emetFile
 
-      & msiexec /i $emetFile /qn /norestart
-      Start-Sleep -s 10
-      Set-Location -Path "C:\Program Files (x86)\EMET 5.5"
-      & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Popular Software.xml'
-      & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Recommended Software.xml'
-      & .\EMET_Conf.exe -system pinning=enabled
+      #& msiexec /i $emetFile /qn /norestart
+      #Start-Sleep -s 10
+      #Set-Location -Path "C:\Program Files (x86)\EMET 5.5"
+      #& .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Popular Software.xml'
+      #& .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Recommended Software.xml'
+      #& .\EMET_Conf.exe -system pinning=enabled
 
       # iex "cmd.exe /c netsh winhttp reset proxy"
       $rdpRearmUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/rdp-rearm.xml"
