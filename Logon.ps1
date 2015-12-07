@@ -106,6 +106,12 @@ try
       Invoke-WebRequest $gitInfUrl -OutFile $gitInfFile
       Start-Process -FilePath $gitInstaller -ArgumentList /SILENT, /LOADINF=$gitInfFile -Wait
 
+      # Install Ossec
+      $ossecUrl = "https://bintray.com/artifact/download/ossec/ossec-hids/ossec-agent-win32-2.8.3.exe"
+      $ossecFile = "$admFolder\ossec.exe"
+      Invoke-WebRequest $ossecUrl -OutFile $ossecFile
+      & $ossecFile /S
+
       # Install EMET
       $emetUrl = "https://download.microsoft.com/download/0/C/B/0CB2E31A-1CBB-4AE7-B7F7-A96CF142652A/EMET%20Setup.msi"
       $emetFile = "$admFolder\EMET Setup.msi"
@@ -120,7 +126,7 @@ try
       # Proxy
       # iex "cmd.exe /c netsh winhttp reset proxy"
 
-      # RDP rearm      
+      # RDP rearm
       $rdpRearmUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/rdp-rearm.xml"
       $rdpRearmFile = "$admFolder\rdp-rearm.xml"
       Invoke-WebRequest $rdpRearmUrl -OutFile $rdpRearmFile
