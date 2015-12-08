@@ -66,5 +66,26 @@
         <DisableFirstRunWizard>true</DisableFirstRunWizard>
         <Home_Page>about:blank</Home_Page>
     </component>
+    <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Deployment" processorarchitecture="amd64" publickeytoken="31bf3856ad364e35" language="neutral" versionscope="nonSxS">
+      <runsynchronous>
+        <runsynchronouscommand wcm:action="add">
+          <order>1</order>
+          <path>powershell -NoLogo -Command "Set-ExecutionPolicy Unrestricted -force"</path>
+          <description>Set-ExecutionPolicy to unrestricted</description>
+        </runsynchronouscommand>
+        <RunSynchronousCommand wcm:action="add">
+          <Order>2</Order>
+          <Path>sc config cloudbase-init start=auto</Path>
+          <Description>Re-enable auto start of cloudbase-init</Description>
+          <WillReboot>Never</WillReboot>
+        </RunSynchronousCommand>
+        <runsynchronouscommand wcm:action="add">
+          <order>3</order>
+          <path>"C:\Program Files (x86)\Cloudbase Solutions\Cloudbase-Init\Python\Scripts\cloudbase-init.exe" --config-file "C:\Program Files (x86)\Cloudbase Solutions\Cloudbase-Init\conf\cloudbase-init-unattend.conf"</path>
+          <description>Run Cloudbase-Init to set the hostname</description>
+          <willreboot>Always</willreboot>
+        </runsynchronouscommand>
+      </runsynchronous>
+    </component>
   </settings>
 </unattend>
