@@ -3,8 +3,8 @@ $ErrorActionPreference = "Stop"
 try
 {
     # Enable ping (ICMP Echo Request on IPv4 and IPv6)
-    netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow
-
+    netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol="icmpv4:8,any" dir=in action=allow
+    
     $Host.UI.RawUI.WindowTitle = "Downloading FirstLogon script..."
     $temp = "$ENV:SystemRoot\Temp"
     $baseUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master"

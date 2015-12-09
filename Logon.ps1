@@ -52,7 +52,7 @@ try
         (New-Object -com shell.application).NameSpace("C:\").copyhere($item, $yesToAll)
       }
 
-      rundll32 setupapi.dll,InstallHinfSection DefaultInstall 128 C:\imdisk\imdisk.inf
+      & rundll32 setupapi.dll,InstallHinfSection DefaultInstall 128 C:\imdisk\imdisk.inf
 
       #Setup Python
       $pythonUrl = "https://www.python.org/ftp/python/2.7.10/python-2.7.10.amd64.msi"
@@ -73,10 +73,10 @@ try
       $env:PATHEXT = [System.Environment]::GetEnvironmentVariable("PATHEXT","Machine")
 
       # Install PIP
-      python $pipFile
+      & python $pipFile
       # netifaces wants to have MSVC installed when using easy_install. Using pip as workaround.
-      pip install netifaces
-      easy_install -Z six python-keystoneclient python-swiftclient
+      & pip install netifaces
+      & easy_install -Z six python-keystoneclient python-swiftclient
       Copy-Item C:\Python27\Scripts\swift-script.py C:\Python27\Scripts\swift.py
 
       # # Downloading PuppetAgent and pointing to server
@@ -144,15 +144,15 @@ try
       $sysprepFile = "$admFolder\sysprep.xml"
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
-      ipconfig /release
-      "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
+      & ipconfig /release
+      & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
       Write-Host -NoNewLine 'Press any key to close this window';
       $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
   }
 }
 catch
 {
-    $host.ui.WriteErrorLine($_.Exception.ToString())
-    $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    $Host.ui.WriteErrorLine($_.Exception.ToString())
+    $x = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
     throw
 }
