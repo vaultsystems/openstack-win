@@ -86,7 +86,7 @@ try
       Invoke-WebRequest $puppetUrl -OutFile $puppetFile
 
       # Install Puppet
-      Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer", /qn -Windows-Identity-Foundation -Wait
+      Start-Process -FilePath msiexec -ArgumentList /i, "$puppetFile PUPPET_MASTER_SERVER=$masterServer", /qn -Wait
 
       # Download and Install Cloud-Init
       $cloudinitUrl="https://www.cloudbase.it/downloads/CloudbaseInitSetup_Stable_x64.msi"
