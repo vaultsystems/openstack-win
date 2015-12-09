@@ -33,9 +33,9 @@ try
         (New-Object -com shell.application).NameSpace("$ENV:SystemRoot\System32\WindowsPowerShell\v1.0\Modules").copyhere($item, $yesToAll)
       }
       Import-Module PSWindowsUpdate
-      #Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
+      Get-WUInstall -AcceptAll -IgnoreReboot -IgnoreUserInput -NotCategory "Language packs"
 
-      #SetComputername
+      # Set Computername
       Rename-Computer "dummy"
       Restart-Computer -Force
 
