@@ -118,9 +118,11 @@ try
       Invoke-WebRequest $emetUrl -OutFile $emetFile
       Start-Process -FilePath msiexec -ArgumentList "/i $emetFile /qn /norestart" -Wait
       Set-Location -Path "C:\Program Files (x86)\EMET 5.5"
+      $ErrorActionPreference = "Continue"
       & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Popular Software.xml'
       & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Recommended Software.xml'
-      & .\EMET_Conf.exe -system pinning=enabled
+      & .\EMET_Conf.exe --system pinning=enabled
+      $ErrorActionPreference = "Stop"
 
       # Proxy
       # iex "cmd.exe /c netsh winhttp reset proxy"
