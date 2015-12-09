@@ -114,9 +114,9 @@ try
 
       # Install EMET
       $emetUrl = "https://download.microsoft.com/download/0/C/B/0CB2E31A-1CBB-4AE7-B7F7-A96CF142652A/EMET%20Setup.msi"
-      $emetFile = "$admFolder\EMET Setup.msi"
+      $emetFile = "$admFolder\EMET-Setup.msi"
       Invoke-WebRequest $emetUrl -OutFile $emetFile
-      Start-Process -FilePath msiexec -ArgumentList /i $emetFile /qn /norestart -Wait
+      Start-Process -FilePath msiexec -ArgumentList "/i $emetFile /qn /norestart" -Wait
       Set-Location -Path "C:\Program Files (x86)\EMET 5.5"
       & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Popular Software.xml'
       & .\EMET_Conf.exe --import 'C:\Program Files (x86)\EMET 5.5\Deployment\Protection Profiles\Recommended Software.xml'
