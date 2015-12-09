@@ -145,7 +145,9 @@ try
       Invoke-WebRequest $sysprepUrl -OutFile $sysprepFile
 
       ipconfig /release
-      & "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
+      "$ENV:SystemRoot\System32\Sysprep\Sysprep.exe" `/generalize `/oobe `/shutdown `/unattend:"$sysprepFile"
+      Write-Host -NoNewLine 'Press any key to close this window';
+      $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
   }
 }
 catch
