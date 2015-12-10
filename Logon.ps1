@@ -93,7 +93,7 @@ try
       $cloudinitInstaller = "$admFolder\CloudbaseInitSetup.msi"
       Invoke-WebRequest $cloudinitUrl -OutFile $cloudinitInstaller
       Start-Process -FilePath msiexec -ArgumentList " /i $admFolder\CloudbaseInitSetup.msi /qn /l*v $admFolder\Cloudinit_Install.log" -Wait
-      #sc config cloudbase-init start=disabled
+      & sc config cloudbase-init start=delayed-auto
       (Get-Content "C:\Program Files\Cloudbase Solutions\Cloudbase-Init\conf\cloudbase-init.conf") -replace('^username=Admin$','username=Administrator') | Set-Content "C:\Program Files\Cloudbase Solutions\Cloudbase-Init\conf\cloudbase-init.conf"
       (Get-Content "C:\Program Files\Cloudbase Solutions\Cloudbase-Init\conf\cloudbase-init-unattend.conf") -replace('^username=Admin$','username=Administrator') | Set-Content "C:\Program Files\Cloudbase Solutions\Cloudbase-Init\conf\cloudbase-init-unattend.conf"
 
