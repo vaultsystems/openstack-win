@@ -13,14 +13,15 @@ try
       # Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name ProxyEnable -Value 1
       # iex "cmd.exe /c netsh winhttp set proxy 10.2.0.2:3128"
 
-      # Adding all Roles
-      Add-WindowsFeature -Name "NET-Framework-Core" -Source D:\sources\sxs
-      Add-WindowsFeature -Name "NFS-Client"
-      Add-WindowsFeature -Name "Telnet-Client"
-      Add-WindowsFeature -Name "Telnet-Server"
-      Add-WindowsFeature -Name "Windows-Identity-Foundation"
-      Add-WindowsFeature -Name "RDS-RD-Server"
-      Add-WindowsFeature -Name "RDS-Licensing"
+      # Install Features
+      Install-WindowsFeature -Name "NET-Framework-Core" -Source D:\sources\sxs
+      Install-WindowsFeature -Name "NFS-Client"
+      Install-WindowsFeature -Name "Telnet-Client"
+      Install-WindowsFeature -Name "Telnet-Server"
+      Install-WindowsFeature -Name "Windows-Identity-Foundation"
+      Install-WindowsFeature -Name "RDS-RD-Server"
+      Install-WindowsFeature -Name "RDS-Licensing"
+      Install-WindowsFeature -Name "RDS-Licensing-UI"
 
       # Download and apply updates
       $psWindowsUpdateUrl = "https://raw.githubusercontent.com/vaultsystems/openstack-win/master/PSWindowsUpdate.zip"
