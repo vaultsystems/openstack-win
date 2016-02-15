@@ -114,7 +114,7 @@ try
       Start-Process -FilePath $ossecFile -ArgumentList /S -Wait
 
       # Install EMET
-      $emetUrl = "https://download.microsoft.com/download/0/C/B/0CB2E31A-1CBB-4AE7-B7F7-A96CF142652A/EMET%20Setup.msi"
+      $emetUrl = "https://download.microsoft.com/download/8/E/E/8EEFD9FC-46B1-4A8B-9B5D-13B4365F8CA0/EMET%20Setup.msi"
       $emetFile = "$admFolder\EMET-Setup.msi"
       Invoke-WebRequest $emetUrl -OutFile $emetFile
       Start-Process -FilePath msiexec -ArgumentList "/i $emetFile /qn /norestart" -Wait
