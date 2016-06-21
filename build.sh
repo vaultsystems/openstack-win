@@ -11,10 +11,6 @@ if [ ! -f "$KVM" ]; then
     KVM=/usr/bin/kvm
 fi
 
-if [ "$#" -ne 1 ]; then
-    echo "Missing ISO file"
-fi
-
 #qemu-img create -f qcow2 -o preallocation=metadata $IMAGE 20G
 truncate --size=0 $IMAGE
 truncate --size=25G $IMAGE
