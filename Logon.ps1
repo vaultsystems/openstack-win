@@ -58,7 +58,7 @@ try
       #Setup Python
       $pythonUrl = "https://www.python.org/ftp/python/2.7.11/python-2.7.11.amd64.msi"
       $pythonFile = "$admFolder\python2.7.msi"
-      $pipUrl = "https://raw.githubusercontent.com/pypa/pip/master/contrib/get-pip.py"
+      $pipUrl = "https://bootstrap.pypa.io/get-pip.py"
       $pipFile = "$admFolder\pip.py"
 
       Invoke-WebRequest $pythonUrl -OutFile $pythonFile
@@ -75,10 +75,7 @@ try
 
       # Install PIP
       & python $pipFile
-      # netifaces wants to have MSVC installed when using easy_install. Using pip as workaround.
-      & pip install netifaces
-      & easy_install -Z six python-keystoneclient python-swiftclient
-      Copy-Item C:\Python27\Scripts\swift-script.py C:\Python27\Scripts\swift.py
+      & pip install python-keystoneclient python-swiftclient
 
       # Downloading PuppetAgent and pointing to server
       $puppetUrl = "http://downloads.puppetlabs.com/windows/puppet-3.6.2.msi"
