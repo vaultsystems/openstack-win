@@ -1,4 +1,6 @@
 $ErrorActionPreference = "Stop"
+# enable TLS 1.2 support as pypa.io requires it
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 try
 {
